@@ -1,0 +1,161 @@
++//
+
++//  main.cpp
+
++//  mergesort
+
++//
+
++//  Created by Luis Alberto Sanchez Moreno on 3/23/16.
+
++//  Copyright © 2016 Luis Alberto Sanchez Moreno. All rights reserved.
+
++//
+
++
+
++#include <iostream>
+
++#include <cstdlib>
+
++
+
++using namespace std;
+
++
+
++int str = 0;
+
++
+
++void merge(int* A,int p,int q, int r)
+
++{
+
++    const int n1=q-p+1;
+
++    const int n2=r-q;
+
++    int* L = new int [n1+1];
+
++    int* R = new int [n2+1];
+
++    L[n1]=str;
+
++    R[n2]=str;
+
++    for(int i = 0; i < n1; i++)
+
++        L[i] = A[p+i];
+
++    for (int j = 0; j < n2; j++)
+
++        R[j] = A[q+j+1];
+
++    
+
++    int i=0;
+
++    int j=0;
+
++    int k;
+
++    for(k=p; k <= r && i < n1 && j < n2; ++k)
+
++    {
+
++        if(L[i] <= R[j])
+
++        {
+
++            A[k] = L[i];
+
++            i++;
+
++        }
+
++        else
+
++        {
+
++            A[k] = R[j];
+
++            j++;
+
++        }
+
++    }
+
++    
+
++}
+
++
+
++void merge_sort(int* A, int p, int r)
+
++{
+
++    if (p < r)
+
++    {
+
++        int q = (p+r)/2;
+
++        merge_sort(A, p,q);
+
++        merge_sort(A,q+1,r);
+
++        merge(A,p,q,r);
+
++    }
+
++}
+
++
+
++int main()
+
++{
+
++    int length;
+
++    cout << "ingresar tamanio del array" << endl;
+
++    cin >> length;
+
++    cout << "\n";
+
++    
+
++    int A [length];
+
++    
+
++    for(int i = 0; i < length; i++)
+
++    {
+
++        A[i] = rand()%99-1;
+
++        cout << A[i] << " ";
+
++    }
+
++    
+
++    cout << "\n";
+
++    merge_sort(A,0,length-1);
+
++    cout << "array ordenado" <<         endl;
+
++    for(int i = 0; i < length; i++) cout << A[i] << " ";
+
++    
+
++    cout << "\n";
+
++    return 0;
+
++}
