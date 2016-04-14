@@ -1,0 +1,14 @@
+def find_maximum_subarray(arr):
+    sums = [0]
+    for a in arr:
+        sums.append(sums[-1] + a)
+    max_sum = -1e100
+    left_index = -1
+    right_index = -1
+    for i in range(len(arr)):
+        for j in range(i, len(arr)):
+            if sums[j + 1] - sums[i] > max_sum:
+                max_sum = sums[j + 1] - sums[i]
+                left_index = i
+                right_index = j
+    return left_index, right_index, max_sum
