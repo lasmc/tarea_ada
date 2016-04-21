@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+int parent(int i ){
+    return  i / 2;
+}
+
+int left(int i ){
+    return  2 * i;
+}
+
+int right(int i){
+    return (2*i) + 1;
+}
+
+void max_Heapify(int Array[], int i){
+    int largest=0;
+    int l=left(i);
+    int r=right(i);
+    if ((l <= sizeof(Array)) && (Array[l] > Array[i])) {
+        largest = l;
+    }
+    else {
+        largest = i;
+    }
+
+    if ((r <= sizeof(Array)) && (Array[r] > Array[largest])) {
+        largest = r;
+    }
+
+    int temp;
+    if (largest != i) {
+        temp = Array[i];
+        Array[i] = Array[largest];
+        Array[largest] = temp;
+
+        max_Heapify(Array, largest));
+    }
+    return;
+}
+
+void Build_Max_Heap(int Array[]) {
+    //int size;
+    //int n = size;
+    for (int i = ((sizeof(Array) - 1) / 2); i >= 0; i--) {
+        max_Heapify(Array,i);
+    }
+    return;
+}
+
+void heapSort(int Array[]) {
+    Build_Max_Heap(sizeof(Array));
+
+    for (int i = sizeof(Array) - 1; i >= 1; i--) {
+        int temp = Array[0];
+        Array[0] = Array[Array.sizeof()-1];
+        Array[sizeof(Array)-1] = temp;
+        sizeof(Array) = sizeof(Array) - 1;
+        max_Heapify(Array, 0);
+    }
+  }
+}
+
+int main(int argc, char* argv[]){
+    int a[10]={ 4,1,3,2,16,9,10,14,8,7};
+   // Build_Max_Heap(a,10);
+    heapSort(a);
+    for (auto A : a) {
+        cout << A << ", ";
+    }
+    cout << endl;
+
+return 0;
+}
