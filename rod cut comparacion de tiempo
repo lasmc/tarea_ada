@@ -1,0 +1,106 @@
+//
+//  main.cpp
+//  Rod_cut
+//
+//  Created by Luis Alberto Sanchez Moreno on 5/25/16.
+//  Copyright © 2016 Luis Alberto Sanchez Moreno. All rights reserved.
+//
+
+#include <iostream>
+#include <limits.h>
+#include <cstdlib>
+#include <ctime>
+#include <sys/timeb.h>
+
+using namespace std;
+
+int max(int a, int b) { return (a > b)? a : b;}
+/// normal////
+
+/*int cutRod(int price[], int n)
+{
+    if (n <= 0)
+        return 0;
+    int max_val = INT_MIN;
+    
+    for (int i = 0; i<n; i++)
+        max_val = max(max_val, price[i] + cutRod(price, n-i-1));
+    
+    return max_val;
+}*/
+
+///botom-up-rotdcut
+
+/*int cutRod(int price[], int n)
+{
+    int val[n+1];
+    val[0] = 0;
+    int i, j;
+    
+
+    for (i = 1; i<=n; i++)
+    {
+        int max_val = INT_MIN;
+        for (j = 0; j < i; j++)
+            max_val = max(max_val, price[j] + val[i-j-1]);
+        val[i] = max_val;
+    }
+    
+    return val[n];
+}*/
+
+///memoisez cut
+
+int memoized_cutRod_aux(int* p, int n, int* r){
+    if(n!=0 and r[n-1]>=0){
+        return r[n-1];
+    }
+    int q=0;
+    if(n==0){
+        q=0;
+    }
+    else
+    {
+        for(int i=0; i<n;i++){
+            q=max(q,p[i]+memoized_cutRod_aux(p,n-(i+1),r));
+        }
+    }
+    r[n-1]=q;
+    return q;
+}
+
+int cutRod(int* p, int n){
+    clock_t start, end1, t;
+    start = clock();
+    int* r=new int [n];
+    for(int i=0;i<n;i++){
+        r[i]=0;
+    }
+    end1 = clock();
+    t=(end1-start)/CLK_TCK;
+    cout<<"Tiempo de Memoized Cut Rod: " <<t<<endl;
+    return memoized_cutRod_aux(p,n,r);
+    
+}
+
+
+int main()
+{
+    int tiempo;
+    clock_t inicio,parada;
+    inicio=clock();
+
+    int arr[] = {1, 5, 8, 9, 10, 17, 17, 20};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    printf("Maximum Obtainable Value is %d\n", cutRod(arr, size));
+    //getchar();
+    
+    parada=clock();
+    tiempo=1000L*(parada-inicio)/CLK_TCK;
+    cout<<"El tiempo de ejecucion del proceso 'X' es de.."<<tiempo<<endl;
+    return 0;
+}
+
+///normal/// tiempo es de 350
+///botom/// tiempo es de 320
+///memoized/// tiempo s de 310
