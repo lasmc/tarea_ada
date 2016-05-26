@@ -93,14 +93,24 @@ int main()
     int arr[] = {1, 5, 8, 9, 10, 17, 17, 20};
     int size = sizeof(arr)/sizeof(arr[0]);
     printf("Maximum Obtainable Value is %d\n", cutRod(arr, size));
-    //getchar();
     
     parada=clock();
     tiempo=1000L*(parada-inicio)/CLK_TCK;
     cout<<"El tiempo de ejecucion del proceso 'X' es de.."<<tiempo<<endl;
     return 0;
 }
+///en un tamano de 4
+///normal/// tiempo es de 330
+///botom/// tiempo es de 310
+///memoized/// tiempo s de 300
 
+///en un tamano de 8
 ///normal/// tiempo es de 350
 ///botom/// tiempo es de 320
 ///memoized/// tiempo s de 310
+
+///en un tamano de 20
+///normal/// tiempo es de 78480
+///botom/// tiempo es de 330
+///memoized/// tiempo s de 320
+
