@@ -103,9 +103,9 @@ void graph::bfs(){
 
 int main(){
 
-    cout<<"*****Breadth First Search*****”<<endl;
+    cout<<"*****Breadth First Search*****"<<endl;
     Graph();
     bfs();
-    cout<<“*****Deap First Search*****”<<endl;
+    cout<<"*****Deap First Search*****"<<endl;
     dfs();
 }
